@@ -1,0 +1,22 @@
+<div class="registration">
+    <div class="page-header">
+        <h1 class="logo-name">SaasMgr Seed Example</h1>
+    </div>
+    <h3>Registration</h3>
+    <div class="alert alert-danger" role="alert" ng-show="error">
+        <strong>Error!</strong> {{error}}
+    </div>
+    <form class="" name="RegistrationForm" role="form" ng-submit="register()">
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" placeholder="Email"
+                   ng-model="user_info.email" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="Password"
+                   ng-model="user_info.password" required>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">Register</button>
+        <a class="login-register" href="#/login">Login</a>
+    </form>
+</div>
