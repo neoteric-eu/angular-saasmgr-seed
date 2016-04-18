@@ -1,0 +1,30 @@
+<div class="todos">
+    <div class="page-header">
+        <h1 class="logo-name">SaasMgr Seed YATLFS!!!11one</h1>
+    </div>
+    <h3>Yet another todo list full of surprises {{todoList.length}}/{{todoMax}}</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <a href class="list-group-item" ng-repeat="todo in todoList">
+                    {{todo.name}}
+                    <span class="pull-right">
+                      <button class="btn btn-xs btn-warning" ng-click="removeTodo($index)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            <form ng-submit="addTodo()">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="todo" placeholder="Todo"
+                           ng-model="todo" required>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary" ng-disabled="isMax()">Add</button>
+            </form>
+        </div>
+    </div>
+</div>

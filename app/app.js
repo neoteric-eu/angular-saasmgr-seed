@@ -4,16 +4,16 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.auth',
-  'myApp.view1',
-  'myApp.view2',
+  'myApp.todo',
+  'myApp.packages',
   'myApp.version'
 ]).value('apiUrl', 'http://dev.sharedservices.ntrc.eu:4100/api/v2').config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.otherwise({redirectTo: '/todo'});
 }]).controller('AppCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
   $scope.appReady = false;
 
   User.getInfo().then(function () {
-    $location.path('/view1');
+    $location.path('/todo');
   }).catch(function () {
     $location.path('/login');
   }).finally(function () {
@@ -26,13 +26,13 @@ angular.module('myApp', [
 
   $scope.logout = function () {
     User.logout().then(function () {
-      $scope.user = null;
+      $scope.$root.user = null;
       $location.path('/login');
     });
   };
 
   $scope.$on(User.update_broadcast, function () {
-    $scope.user = User.model;
+    $scope.$root.user = User.model;
   });
 
   $scope.$on('$routeChangeStart', function (event, next) {

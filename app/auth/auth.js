@@ -20,7 +20,7 @@ angular.module('myApp.auth', ['ngRoute'])
         $scope.error = false;
         User.login($scope.credentials).then(function () {
             $scope.credentials = {};
-            $location.path('/view1');
+            $location.path('/todo');
         }, function () {
             $scope.error = true;
         });
@@ -33,7 +33,7 @@ angular.module('myApp.auth', ['ngRoute'])
     $scope.register = function () {
         User.registration($scope.user_info).then(function () {
             $scope.user_info = {};
-            $location.path('/view1');
+            $location.path('/todo');
         }, function (response) {
             $scope.error = response.data.message;
         });
