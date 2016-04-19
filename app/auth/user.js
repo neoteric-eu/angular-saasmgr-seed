@@ -39,10 +39,21 @@ angular.module('myApp.auth')
         });
     };
 
+    user.getCustomer = function () {
+        var customerId = sessionStorage.getItem(storageSettings.customer);
+        return $http.get(apiUrl + user.urls.get_customer + '/' + customerId).then(function (response) {
+            user.customer = response.data.data;
+        });
+    };
+
     user.logout = function () {
         return $http.post(apiUrl + user.urls.logout_user).finally(function () {
             clearSession();
         });
+    };
+    
+    user.getFullName = function () {
+        return user.model.firstName + ' ' + user.model.lastName;
     };
 
     function restoreSession() {
@@ -76,6 +87,7 @@ angular.module('myApp.auth')
         login_user: '/users/login',
         logout_user: '/users/logout',
         get_user_info: '/users/authInfo',
+        get_customer: '/customers',
         register_user: '/registration'
     };
 

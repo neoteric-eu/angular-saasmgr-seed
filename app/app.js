@@ -9,17 +9,17 @@ angular.module('myApp', [
   'myApp.version'
 ]).value('apiUrl', 'http://dev.sharedservices.ntrc.eu:4100/api/v2').config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/todo'});
-}]).controller('AppCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
-  $scope.appReady = false;
+}]).run(['$rootScope', '$location', 'User', function ($rootScope, $location, User) {
+  $rootScope.appReady = false;
 
   User.getInfo().then(function () {
     $location.path('/todo');
   }).catch(function () {
     $location.path('/login');
   }).finally(function () {
-    $scope.appReady = true;
+    $rootScope.appReady = true;
   });
-
+}]).controller('AppCtrl', ['$scope', '$location', 'User', function ($scope, $location, User) {
   $scope.isActive = function (location) {
     return location === $location.path();
   };
@@ -38,7 +38,7 @@ angular.module('myApp', [
   $scope.$on('$routeChangeStart', function (event, next) {
     if (next.$$route !== undefined) {
       var nextRoute = next.$$route.originalPath;
-      if (User.model.id === undefined && (nextRoute != '/register' && nextRoute != '/login')) {
+      if (User.model.id === undefined && (nextRoute !== '/register' && nextRoute !== '/login')) {
         $location.path('/login');
       }
     }
