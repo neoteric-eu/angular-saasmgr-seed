@@ -1,0 +1,77 @@
+<div class="row">
+    <div ng-repeat="option in model.bundleOptions"
+         class="col-xs-12 col-sm-6 col-md-3">
+        <div class="panel pricing-big" ng-class="{
+			'panel-success': $index === 0,
+			'panel-teal': $index === 1,
+			'panel-primary': $index === 2,
+			'panel-greenLight': $index === 3,
+			'panel-darken': $index === 4,
+			'bg-color-blueDark': $index === 5
+		}">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {{option.name}}
+                </h3>
+            </div>
+            <div class="panel-body no-padding text-align-center">
+                <div class="the-price">
+                    <h1 ng-hide="model.$isFree">
+                        <strong>From</strong>
+                        ${{getPriceRange(model, option)}}
+                        <span class="subscript">/ mo</span>
+                    </h1>
+                    <h1 ng-show="model.$isFree">
+                        <strong>Free</strong>
+                    </h1>
+                </div>
+                <div class="price-features">
+                    <ul class="list-unstyled text-left">
+                        <li ng-repeat="record in option.records">
+                            <label>
+                                <input type="radio" ng-name="record-{{option.name}}" class="radiobox"
+                                       data-ng-value="record"
+                                       data-ng-model="option.$selected">
+								<span>
+									Option
+									<span ng-hide="record.infinite">
+										<span ng-show="record.duration.years">
+											{{record.duration.years}} years
+										</span>
+										<span ng-show="record.duration.months">
+											{{record.duration.months}} months
+										</span>
+										<span ng-show="record.duration.days">
+											{{record.duration.days}} days
+										</span>
+									</span>
+									<span>- ${{record.price}}</span>
+									<span ng-show="record.infinite">
+										Infinite
+									</span>
+								</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-footer text-align-center">
+                <a ng-hide="model.$isFree" class="btn btn-primary btn-block" role="button"
+                   ng-click="buyBundle(option)"
+                   ng-disabled="!option.$selected">
+                    <i class="fa fa-spin fa-spinner" ng-show="option.$isPending"></i>
+                    Purchase <span>via Paypal</span>
+                </a>
+                <a ng-show="model.$isFree" class="btn btn-primary btn-block" role="button"
+                   ng-click="buyBundle(option)"
+                   ng-disabled="!option.$selected">
+                    <i class="fa fa-spin fa-spinner" ng-show="option.$isPending"></i>
+                    Get in <span>now!</span>
+                </a>
+                <div>
+                    <a><i>We accept all major credit cards</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
